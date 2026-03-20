@@ -61,7 +61,7 @@ Este projeto foi desenvolvido com foco em:
 
 ## 🔗 Demonstração
 
-LinkedIn: 
+Vídeo no LinkedIn: https://www.linkedin.com/posts/gabriel-costa-domiciano-a18a2a325_frontend-desenvolvimentoweb-webdevelopment-activity-7440769837359869952-mXld?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFIzMzQBgW2q6jONNt6TGB0DG1mGLjfeKp0
 
 ---
 
