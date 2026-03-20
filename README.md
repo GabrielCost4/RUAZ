@@ -53,14 +53,15 @@ Este projeto foi desenvolvido com foco em:
 
 ## 📸 Preview
 
-> Adicione aqui imagens ou um GIF do projeto  
-> (isso aumenta MUITO o impacto)
+![Home](./assets/produtos.png)
+![Carrinho](./assets/carrinho.png)
+![Página do produto](./assets/pag-produto.png)
 
 ---
 
 ## 🔗 Demonstração
 
-> Adicione aqui o link do projeto publicado (Vercel / Netlify)
+LinkedIn: 
 
 ---
 
