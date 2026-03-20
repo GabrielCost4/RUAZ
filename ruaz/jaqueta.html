@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>RUAZ | Jaqueta Street</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="icon" href="img/favicon-ruaz.png">
+</head>
+
+<body>
+
+  <div class="carrinho">
+    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+      0
+      <span class="visually-hidden"></span>
+    </span>
+    <a href="carrinho.html"><i class="bi bi-cart cor-icon"></i></a>
+  </div>
+
+  <div class="entrar">
+    <a href="entrar.html"><i class="bi bi-person-circle cor-icon"></i></a>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar-pill fixed" id="topo">
+    <a class="nav-item" href="index.html">Home</a>
+    <a class="nav-item" href="index.html">Produtos</a>
+    <a class="nav-item" href="index.html">Sobre</a>
+    <a class="nav-item" href="contato.html">Contato</a>
+  </nav>
+
+  <!-- PRODUTO -->
+  <div class="container-produto">
+
+    <!-- IMAGENS -->
+    <div class="galeria">
+      <img id="img-principal" src="img-roupas/modelo-3.png">
+
+      <div class="miniaturas">
+        <img src="img-angulos/jaqueta-angulo1.png" onclick="trocarImagem(this)">
+        <img src="img-angulos/jaqueta-angulo3.png" onclick="trocarImagem(this)">
+        <img src="img-angulos/jaqueta-angulo4.png" onclick="trocarImagem(this)">
+        <img src="img-angulos/jaqueta-angulo2.png" onclick="trocarImagem(this)">
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="info">
+
+      <h1>Jaqueta RUAZ Street</h1>
+
+      <!-- AVALIAÇÃO -->
+      <div class="avaliacao">
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-fill"></i>
+        <i class="bi bi-star-half"></i>
+        <span>(53 avaliações)</span>
+      </div>
+
+      <!-- PREÇO -->
+      <p class="preco">R$ 189,90</p>
+      <p class="parcelamento">ou 6x de R$ 31,65 sem juros</p>
+
+      <!-- DESCRIÇÃO -->
+      <p class="descricao">
+        Jaqueta RUAZ premium com design urbano e acabamento resistente.
+        Perfeita para quem busca estilo, conforto e proteção nos dias frios.
+      </p>
+
+      <!-- CORES -->
+      <div class="cores">
+        <p>Cor:</p>
+        <span class="cor preta"></span>
+        <span class="cor bege"></span>
+      </div>
+
+      <!-- TAMANHOS -->
+      <div class="tamanhos">
+        <p>Tamanho:</p>
+        <span onclick="selecionarTamanho(this)">P</span>
+        <span onclick="selecionarTamanho(this)">M</span>
+        <span onclick="selecionarTamanho(this)">G</span>
+        <span onclick="selecionarTamanho(this)">GG</span>
+      </div>
+
+      <!-- FRETE -->
+      <div class="frete">
+        <input type="text" placeholder="Digite seu CEP">
+        <button>Calcular</button>
+      </div>
+
+      <!-- BOTÕES -->
+      <button class="btn-comprar">Comprar agora</button>
+
+      <button class="btn-carrinho" onclick="addProduto('Jaqueta RUAZ Street', 189.90, 'img-roupas/modelo-3.png')">
+        Adicionar ao carrinho
+      </button>
+
+      <!-- INFO EXTRA -->
+      <div class="info-extra">
+        <p>✔ Envio rápido para todo Brasil</p>
+        <p>✔ Troca grátis em até 7 dias</p>
+        <p>✔ Pagamento 100% seguro</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- DETALHES -->
+  <div class="descricao-completa container mt-5">
+    <h2>Detalhes do Produto</h2>
+    <p>
+      A jaqueta RUAZ foi criada para quem vive o lifestyle streetwear.
+      Com materiais de alta qualidade, garante durabilidade e estilo marcante.
+    </p>
+
+    <ul>
+      <li>Material: Poliéster premium</li>
+      <li>Forro interno confortável</li>
+      <li>Modelagem: Oversized</li>
+      <li>Resistente ao vento</li>
+    </ul>
+  </div>
+
+  <!-- RELACIONADOS -->
+  <div class="relacionados container mt-5">
+    <h2>Você também pode gostar</h2>
+
+    <div class="row">
+      <div class="col-md-3">
+        <a href="camiseta.html">
+          <img src="img-roupas/modelo-2.png" class="img-fluid">
+        </a>
+        <p>Camiseta RUAZ</p>
+        <span>R$ 79,90</span>
+      </div>
+
+      <div class="col-md-3">
+        <a href="moletom.html">
+          <img src="img-roupas/modelo-1.png" class="img-fluid">
+        </a>
+        <p>Moletom RUAZ</p>
+        <span>R$ 149,90</span>
+      </div>
+
+      <div class="col-md-3">
+        <a href="bone.html">
+          <img src="img-roupas/modelo-4.png" class="img-fluid">
+        </a>
+        <p>Boné RUAZ</p>
+        <span>R$ 59,90</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="ruaz-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h1>RUAZ</h1>
+        <p>Mais que roupa. É atitude.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navegação</h4>
+        <a href="index.html">Home</a>
+        <a href="index.html">Produtos</a>
+        <a href="index.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+      </div>
+
+      <div class="footer-social">
+        <h4>Conecte-se</h4>
+        <div class="icons">
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-tiktok"></i>
+          <i class="bi bi-whatsapp"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 RUAZ. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/scripts.js"></script>
+
+</body>
+
+</html>
