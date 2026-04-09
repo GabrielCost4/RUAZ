@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>RUAZ | Streetwear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="icon" sizes="32x32" href="img/favicon-ruaz.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+  <div class="carrinho">
+    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+      0
+      <span class="visually-hidden"></span>
+    </span>
+    <a href="carrinho.html"><i class="bi bi-cart cor-icon"></i></a>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar-pill fixed" id="topo">
+    <a class="nav-item active" href="index.html">Home</a>
+    <a class="nav-item" href="index.html">Produtos</a>
+    <a class="nav-item" href="index.html">Sobre</a>
+    <a class="nav-item" href="contato.html">Contato</a>
+  </nav>
+
+  <div class="form-container">
+    <div class="row">
+      <div class="col">
+        <form class="form-enter">
+          <h1 class="mt-5">Entre na(s) RUAZ</h1>
+          <div class="mb-3 mt-5">
+            <label for="exampleInputEmail1" class="form-label ms-3"><i
+                class="bi bi-envelope-at-fill  me-1"></i>Email</label>
+            <input type="email" id="inpt-email" class="form-control ms-3 " placeholder="Digite seu email"
+              id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            <span id="status-email"></span>
+            <div id="emailHelp" class="form-text ms-3">Nunca compartilharemos seu e-mail com ninguém.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label ms-3"><i class="bi bi-lock-fill me-1"></i>Senha</label>
+            <input type="password" placeholder="Digite sua senha" id="inpt-senha" class="form-control ms-3 me-5"
+              required>
+            <button id="verSenha" class="btn-eye"><i class="bi bi-eye-fill"></i></button>
+            <span id="status-senha"></span>
+          </div>
+          <div>
+            <p class="requisitos-senha">Requisitos da senha:</p>
+            <ul>
+              <li type="circle"> Mínimo de 8 caracteres;</li>
+              <li type="circle"> Deve conter letras minúsculas;</li>
+              <li type="circle"> Deve conter letras maiúsculas;</li>
+              <li type="circle"> Deve conter ao menos <strong>um</strong> número;</li>
+              <li type="circle"> Deve conter ao menos <strong>um</strong> símbolo. Ex: %_$@#</li>
+            </ul>
+          </div>
+          <div class="mb-3 mt-2">
+            <button type="button" class="btn btn-dark btn-form">Entrar com <i class="bi bi-google"></i></button>
+            <button type="button" class="btn btn-dark btn-form">Entrar com <i class="bi bi-apple"></i></button>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input " id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Lembrar de mim neste dispositivo</label>
+            <span id="status-check"></span>
+          </div>
+          <button type="button" id="btnValidacao" class="btn btn-dark btn-form ms-">Entrar</button>
+          <span id="status-informacoes"></span>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <footer class="ruaz-footer">
+
+    <div class="footer-container">
+
+      <!-- LOGO / MARCA -->
+      <div class="footer-brand">
+        <h1>RUAZ</h1>
+        <p>Mais que roupa. É atitude.</p>
+      </div>
+
+      <!-- LINKS -->
+      <div class="footer-links">
+        <h4>Navegação</h4>
+        <a href="index.html">Home</a>
+        <a href="index.html">Produtos</a>
+        <a href="index.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+      </div>
+
+      <!-- SOCIAL -->
+      <div class="footer-social">
+        <h4>Conecte-se</h4>
+        <div class="icons">
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-tiktok"></i>
+          <i class="bi bi-whatsapp"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LINHA FINAL -->
+    <div class="footer-bottom">
+      <p>© 2026 RUAZ. Todos os direitos reservados.</p>
+    </div>
+
+  </footer>
+
+
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>
