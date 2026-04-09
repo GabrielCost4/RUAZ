@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>RUAZ | Streetwear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="icon" sizes="32x32" href="img/favicon-ruaz.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+  <div class="entrar">
+    <a href="entrar.html"><i class="bi bi-person-circle cor-icon"></i></a>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar-pill fixed" id="topo">
+    <a class="nav-item active" href="index.html">Home</a>
+    <a class="nav-item" href="index.html">Produtos</a>
+    <a class="nav-item" href="index.html">Sobre</a>
+    <a class="nav-item" href="contato.html">Contato</a>
+  </nav>
+
+  <!-- TÍTULO -->
+  <section class="carrinho-header">
+    <h1>Seu Carrinho</h1>
+    <p>Revise seus produtos antes de finalizar a compra</p>
+  </section>
+
+  <!-- CONTAINER -->
+  <div class="carrinho-container">
+
+    <!-- LISTA DE PRODUTOS -->
+    <div class="carrinho-produtos">
+
+      <!-- ITEM -->
+      <div class="item-carrinho">
+        <img src="img-roupas/modelo-2.png">
+
+        <div class="item-info">
+          <h5>Camiseta RUAZ Street</h5>
+          <p>Tamanho: M</p>
+          <span>R$ 79,90</span>
+        </div>
+
+        <div class="item-qtd">
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </div>
+
+        <i class="bi bi-trash remover"></i>
+      </div>
+
+      <!-- ITEM -->
+      <div class="item-carrinho">
+        <img src="img-roupas/modelo-1.png">
+
+        <div class="item-info">
+          <h5>Moletom RUAZ</h5>
+          <p>Tamanho: G</p>
+          <span>R$ 149,90</span>
+        </div>
+
+        <div class="item-qtd">
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+        </div>
+
+        <i class="bi bi-trash remover"></i>
+      </div>
+
+    </div>
+
+    <!-- RESUMO -->
+    <div class="carrinho-resumo">
+
+      <h3>Resumo</h3>
+
+      <div class="resumo-linha">
+        <span>Subtotal</span>
+        <span>R$ 229,80</span>
+      </div>
+
+      <div class="resumo-linha">
+        <span>Frete</span>
+        <span>Grátis</span>
+      </div>
+
+      <hr>
+
+      <div class="resumo-total">
+        <span>Total</span>
+        <strong>R$ 229,80</strong>
+      </div>
+
+      <button class="btn-finalizar">Finalizar compra</button>
+
+    </div>
+
+  </div>
+
+  <footer class="ruaz-footer">
+
+    <div class="footer-container">
+
+      <!-- LOGO / MARCA -->
+      <div class="footer-brand">
+        <h1>RUAZ</h1>
+        <p>Mais que roupa. É atitude.</p>
+      </div>
+
+      <!-- LINKS -->
+      <div class="footer-links">
+        <h4>Navegação</h4>
+        <a href="index.html">Home</a>
+        <a href="index.html">Produtos</a>
+        <a href="index.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+      </div>
+
+      <!-- SOCIAL -->
+      <div class="footer-social">
+        <h4>Conecte-se</h4>
+        <div class="icons">
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-tiktok"></i>
+          <i class="bi bi-whatsapp"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LINHA FINAL -->
+    <div class="footer-bottom">
+      <p>© 2026 RUAZ. Todos os direitos reservados.</p>
+    </div>
+
+  </footer>
+
+  <script>
+    function renderCarrinho() {
+      const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      const container = document.querySelector(".carrinho-produtos");
+      const resumo = document.querySelector(".resumo-total strong");
+
+      container.innerHTML = "";
+      let total = 0;
+
+      carrinho.forEach((item, index) => {
+        total += item.preco * item.qtd;
+
+        container.innerHTML += `
+      <div class="item-carrinho">
+        <img src="${item.imagem}">
+        <div class="item-info">
+          <h5>${item.nome}</h5>
+          <p>Tamanho: ${item.tamanho}</p>
+          <span>R$ ${item.preco.toFixed(2)}</span>
+        </div>
+
+        <div class="item-qtd">
+          <button onclick="diminuir(${index})">-</button>
+          <span>${item.qtd}</span>
+          <button onclick="aumentar(${index})">+</button>
+        </div>
+
+        <i class="bi bi-trash remover" onclick="remover(${index})"></i>
+      </div>
+    `;
+      });
+
+      resumo.innerText = "R$ " + total.toFixed(2);
+    }
+
+    // ==========================
+    // AÇÕES
+    // ==========================
+
+    function aumentar(i) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho"));
+      carrinho[i].qtd++;
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      renderCarrinho();
+    }
+
+    function diminuir(i) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho"));
+      if (carrinho[i].qtd > 1) {
+        carrinho[i].qtd--;
+      }
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      renderCarrinho();
+    }
+
+    function remover(i) {
+      let carrinho = JSON.parse(localStorage.getItem("carrinho"));
+      carrinho.splice(i, 1);
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
+      renderCarrinho();
+    }
+
+    // INIT
+    renderCarrinho();
+  </script>
+
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>
