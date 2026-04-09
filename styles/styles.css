@@ -157,6 +157,7 @@ p {
   transform: translateX(-50%);
 }
 
+
 .nav-item:hover::after {
 
   width: 60%;
@@ -218,7 +219,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 80px;
+  gap: 3px;
 
   padding: 120px 10%;
 
@@ -1283,9 +1284,149 @@ p {
   cursor: pointer;
 }
 
-/* RESPONSIVO */
-@media (max-width: 900px) {
-  .carrinho-container {
+/* ========================= */
+/* TABLET */
+/* ========================= */
+
+@media (max-width: 1024px) {
+
+  .banner {
+    height: auto;
+    padding: 60px 20px;
+    margin: 0 20px;
+  }
+
+  .banner-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .banner-text h1 {
+    font-size: 48px;
+  }
+
+  .banner-img img {
+    width: 350px;
+  }
+
+  .s2 {
+    flex-direction: column;
+    text-align: center;
+    gap: 60px;
+    padding: 80px 5%;
+  }
+
+  .image-stack {
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+  }
+
+  .image-stack img{
+    position: relative;   /* CORREÇÃO */
+    width: 260px;
+    margin: 10px auto;
+  }
+
+  .categorias-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .categoria1 {
+    grid-row: auto;
+  }
+
+  .container-produto {
     grid-template-columns: 1fr;
   }
+
 }
+
+
+/* ========================= */
+/* CELULAR */
+/* ========================= */
+
+@media (max-width: 600px) {
+
+  p {
+    font-size: 18px;
+  }
+
+  .banner {
+    border-radius: 30px;
+  }
+
+  .banner-text h1 {
+    font-size: 36px;
+  }
+
+  .banner::before {
+    font-size: 100px;
+  }
+
+  .banner-img img {
+    width: 260px;
+  }
+
+  .nav-item {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .navbar-pill {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .s2 h1 {
+    font-size: 32px;
+  }
+
+  .image-stack {
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;  /* CORREÇÃO */
+    align-items: center;
+    gap: 20px;
+  }
+
+  .image-stack img {
+    position: relative;   /* CORREÇÃO PRINCIPAL */
+    width: 70%;
+    max-width: 250px;
+    top: auto;
+    left: auto;
+    transform: none;      /* remove rotações */
+  }
+
+  .ruaz-card {
+    width: 100%;
+  }
+
+  .s3 {
+    padding: 40px 20px;
+  }
+
+  .s4 h1 {
+    font-size: 36px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .form-enter {
+    width: 90%;
+  margin: auto;
+  }
+
+}
+
