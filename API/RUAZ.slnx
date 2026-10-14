@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="RUAZ.API/RUAZ.API.csproj" />
+  <Project Path="RUAZ.Application/RUAZ.Application.csproj" />
+  <Project Path="RUAZ.Domain/RUAZ.Domain.csproj" />
+  <Project Path="RUAZ.Infrastructure/RUAZ.Infrastructure.csproj" />
+</Solution>

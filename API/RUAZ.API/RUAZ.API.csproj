@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RUAZ.Domain\RUAZ.Domain.csproj" />
+    <ProjectReference Include="..\RUAZ.Application\RUAZ.Application.csproj" />
+    <ProjectReference Include="..\RUAZ.Infrastructure\RUAZ.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
