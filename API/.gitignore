@@ -2,3 +2,10 @@
 
 bin/
 obj/
+
+# Secrets
+.env
+.env.*
+
+# Exceptions
+!.env.example

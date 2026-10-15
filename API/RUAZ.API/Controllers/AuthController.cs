@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using RUAZ.Application;
+using RUAZ.Application.Contracts;
+using RUAZ.Application.ExceptionsAPI;
 
 namespace RUAZ.API
 {
@@ -15,9 +16,14 @@ namespace RUAZ.API
     ) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Login (LoginRequest request)
+        public async Task<LoginResponse> Login (LoginRequest request)
         {
             var result = await authService.AutenticateUser(request);
+
+            if(result is null)
+            {
+                
+            }
 
             return result;
         }
