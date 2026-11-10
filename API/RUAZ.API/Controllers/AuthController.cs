@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using RUAZ.Application;
 using RUAZ.Application.Contracts;
 using RUAZ.Application.ExceptionsAPI;
+using RUAZ.Application.Services;
 
 namespace RUAZ.API
 {
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController(
-        AuthService authService
+        AuthService authService,
+        RegisterService registerService
     ) : ControllerBase
     {
         [HttpPost]
@@ -22,11 +24,23 @@ namespace RUAZ.API
 
             if(result is null)
             {
-                
+                throw new BadRequestException("Credenciais inválidas!");
             }
 
             return result;
         }
         
+        [HttpPost("register")]
+        public async Task<LoginResponse> Register (RegisterRequest request)
+        {
+            var result = await registerService.GetByEmail(request);
+
+            if(result is null)
+            {
+                throw new BadRequestException("Credenciais inválidas!");
+            }
+
+            return result;
+        }
     }
 }
