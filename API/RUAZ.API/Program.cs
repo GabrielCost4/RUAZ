@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RUAZ.Application;
 using RUAZ.Application.Interfaces;
+using RUAZ.Application.Services;
 using RUAZ.Infrastructure.Data;
 using RUAZ.Infrastructure.Repositories;
 using RUAZ.Infrastructure.Security;
@@ -18,6 +19,7 @@ builder.Services.AddControllers();
 
 // Dependency Injections //
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<RegisterService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJWTService, JWTService>();

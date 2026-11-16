@@ -17,7 +17,7 @@ namespace RUAZ.API
         RegisterService registerService
     ) : ControllerBase
     {
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<LoginResponse> Login (LoginRequest request)
         {
             var result = await authService.AutenticateUser(request);
