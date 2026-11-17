@@ -30,7 +30,7 @@ namespace RUAZ.Application
 
             if(!equalPassword)
             {
-                throw new BadRequestException("Email ou senha inválidos");
+                throw new NotFoundException("Usuário não encontrado!");
             }
 
             var token = jwtService.GenerateAcessToken(user);
