@@ -3,4 +3,5 @@
   <Project Path="RUAZ.Application/RUAZ.Application.csproj" />
   <Project Path="RUAZ.Domain/RUAZ.Domain.csproj" />
   <Project Path="RUAZ.Infrastructure/RUAZ.Infrastructure.csproj" />
+  <Project Path="RUAZ.Tests/RUAZ.Tests.csproj" />
 </Solution>
