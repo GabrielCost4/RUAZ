@@ -9,7 +9,7 @@ namespace RUAZ.Domain.Normalizer
     {
         public static string Normalize(string name)
         {
-           return name.Trim().ToUpperInvariant();
+            return name.Trim().ToUpperInvariant();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace RUAZ.Application
 
             var equalPassword = passwordHasher.VerifyPassword(request.Password, user.PasswordHash);
 
-            if(!equalPassword)
+            if (!equalPassword)
             {
                 throw new NotFoundException("Usuário não encontrado!");
             }

@@ -9,6 +9,6 @@ namespace RUAZ.Application.Interfaces
 {
     public interface IJWTService
     {
-        LoginResponse GenerateAcessToken (User user);
+        LoginResponse GenerateAcessToken(User user);
     }
 }

@@ -7,6 +7,7 @@ using RUAZ.Application.Contracts;
 using RUAZ.Application.ExceptionsAPI;
 using RUAZ.Application.Interfaces;
 using RUAZ.Domain.Entities;
+using RUAZ.Domain.Enums;
 using RUAZ.Domain.Normalizer;
 
 namespace RUAZ.Application.Services
@@ -19,23 +20,28 @@ namespace RUAZ.Application.Services
     {
         public async Task<LoginResponse> GetByEmail(RegisterRequest request)
         {
-           var userFound = await userRepository.GetByEmail(request.Email);
+            if (request.TypeActivity is not (TypeActivity.User or TypeActivity.Store))
+            {
+                throw new BadRequestException("Tipo de atividade inválido para cadastro!");
+            }
 
-           if (userFound is not null)
-           {
+            var userFound = await userRepository.GetByEmail(request.Email);
+
+            if (userFound is not null)
+            {
                 throw new ConflictException("Já existe um usuário com este email!");
-           }
+            }
 
-           var normalizated = StringNormalizer.Normalize(request.Name);
- 
-           var passwordStrong =
-            request.Password.Length >= 8 &&
-            request.Password.Any(char.IsDigit) &&
-            request.Password.Any(char.IsLetter) &&
-            request.Password.Any(c =>
-                char.IsSymbol(c) || char.IsPunctuation(c));
+            var normalizated = StringNormalizer.Normalize(request.Name);
 
-            if(!passwordStrong)
+            var passwordStrong =
+             request.Password.Length >= 8 &&
+             request.Password.Any(char.IsDigit) &&
+             request.Password.Any(char.IsLetter) &&
+             request.Password.Any(c =>
+                 char.IsSymbol(c) || char.IsPunctuation(c));
+
+            if (!passwordStrong)
             {
                 throw new BadRequestException("Senha fraca!");
             }

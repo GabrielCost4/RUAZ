@@ -18,24 +18,24 @@ namespace RUAZ.API
     ) : ControllerBase
     {
         [HttpPost("login")]
-        public async Task<LoginResponse> Login (LoginRequest request)
+        public async Task<LoginResponse> Login(LoginRequest request)
         {
             var result = await authService.AutenticateUser(request);
 
-            if(result is null)
+            if (result is null)
             {
                 throw new BadRequestException("Credenciais inválidas!");
             }
 
             return result;
         }
-        
+
         [HttpPost("register")]
-        public async Task<LoginResponse> Register (RegisterRequest request)
+        public async Task<LoginResponse> Register(RegisterRequest request)
         {
             var result = await registerService.GetByEmail(request);
 
-            if(result is null)
+            if (result is null)
             {
                 throw new BadRequestException("Credenciais inválidas!");
             }

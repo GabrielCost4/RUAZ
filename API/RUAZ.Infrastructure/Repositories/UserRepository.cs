@@ -13,12 +13,12 @@ namespace RUAZ.Infrastructure.Repositories
         AppDbContext _context
     ) : IUserRepository
     {
-        public async Task<User?> GetByEmail (string email)
+        public async Task<User?> GetByEmail(string email)
         {
             return await _context.Users
             .FirstOrDefaultAsync(e => e.Email == email);
         }
-        public async Task AddAsync (User user)
+        public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();

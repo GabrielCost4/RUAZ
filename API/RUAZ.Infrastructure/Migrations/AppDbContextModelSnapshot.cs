@@ -22,41 +22,20 @@ namespace RUAZ.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("RUAZ.Domain.Base.EntityBase", b =>
+            modelBuilder.Entity("RUAZ.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("character varying(13)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EntityBase");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("EntityBase");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("RUAZ.Domain.Entities.Product", b =>
-                {
-                    b.HasBaseType("RUAZ.Domain.Base.EntityBase");
 
                     b.Property<Guid?>("BuyerId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Category")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -79,20 +58,30 @@ namespace RUAZ.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
+                    b.HasKey("Id");
+
                     b.HasIndex("UserId");
 
-                    b.HasDiscriminator().HasValue("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("RUAZ.Domain.Entities.User", b =>
                 {
-                    b.HasBaseType("RUAZ.Domain.Base.EntityBase");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<byte[]>("Avatar")
                         .HasColumnType("bytea");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -110,7 +99,15 @@ namespace RUAZ.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasDiscriminator().HasValue("User");
+                    b.Property<int>("TypeActivity")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("RUAZ.Domain.Entities.Product", b =>
