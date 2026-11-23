@@ -28,9 +28,6 @@ namespace RUAZ.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("BuyerId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Category")
                         .HasColumnType("integer");
 
@@ -52,6 +49,9 @@ namespace RUAZ.Infrastructure.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Stock")
                         .HasColumnType("integer");
 
                     b.Property<string>("Title")

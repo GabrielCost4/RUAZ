@@ -56,7 +56,9 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 // Dependency Injections //
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<RegisterService>();
+builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJWTService, JWTService>();
 

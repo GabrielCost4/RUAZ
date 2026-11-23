@@ -15,8 +15,13 @@ namespace RUAZ.Domain.Entities
         public decimal Price { get; set; }
         public byte[] Image { get; set; } = [];
         public Guid OwnerId { get; set; }
-        public Guid? BuyerId { get; set; }
+        public int Stock { get; set; }
         public ProductsCategory Category { get; set; }
         public StatusProduct Status { get; set; }
+
+        public void SyncStatusFromStock()
+        {
+            Status = Stock > 0 ? StatusProduct.Available : StatusProduct.Exhausted;
+        }
     }
 }
