@@ -19,6 +19,7 @@ public sealed class GlobalExceptionHandler(
             ConflictException => (StatusCodes.Status409Conflict, "Conflito"),
             BadRequestException => (StatusCodes.Status400BadRequest, "Requisição inválida"),
             UnauthorizedException => (StatusCodes.Status401Unauthorized, "Não autorizado"),
+            ForbiddenException => (StatusCodes.Status403Forbidden, "Acesso negado"),
             _ => (StatusCodes.Status500InternalServerError, "Erro interno")
         };
 

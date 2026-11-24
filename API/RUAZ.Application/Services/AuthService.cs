@@ -8,7 +8,7 @@ using RUAZ.Application.ExceptionsAPI;
 using RUAZ.Application.Interfaces;
 using RUAZ.Domain.Entities;
 
-namespace RUAZ.Application
+namespace RUAZ.Application.Services
 {
     public class AuthService(
       IUserRepository userRepository,
@@ -28,7 +28,7 @@ namespace RUAZ.Application
 
             var equalPassword = passwordHasher.VerifyPassword(request.Password, user.PasswordHash);
 
-            if(!equalPassword)
+            if (!equalPassword)
             {
                 throw new NotFoundException("Usuário não encontrado!");
             }

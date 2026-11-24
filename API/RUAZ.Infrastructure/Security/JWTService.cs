@@ -37,15 +37,15 @@ namespace RUAZ.Infrastructure.Security
             var now = DateTime.UtcNow;
             var expiresAt = now.AddMinutes(expiresInMinutes);
 
-            // User ainda não possui uma role persistida; emitir somente a permissão comum.
-            var role = Roles.User.ToString();
+            var role = user.TypeActivity.ToString();
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Role, role)
+                new Claim(ClaimTypes.Role, role),
+                new Claim("type_activity", user.TypeActivity.ToString())
             };
 
             var credentials = new SigningCredentials(

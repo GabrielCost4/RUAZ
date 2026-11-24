@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RUAZ.Application\RUAZ.Application.csproj" />
+    <ProjectReference Include="..\RUAZ.Infrastructure\RUAZ.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
