@@ -49,7 +49,7 @@ namespace RUAZ.Tests
                     ExpiresIn = "3600"
                 });
 
-            var result = await _sut.GetByEmail(new RegisterRequest
+            var result = await _sut.RegisterUser(new RegisterRequest
             {
                 Name = "Gabriel Costa",
                 Email = "novo@ruaz.com",
@@ -71,7 +71,7 @@ namespace RUAZ.Tests
         public async Task Register_DisallowedTypeActivity_ThrowsBadRequestException(TypeActivity typeActivity)
         {
             await Assert.ThrowsAsync<BadRequestException>(() =>
-                _sut.GetByEmail(new RegisterRequest
+                _sut.RegisterUser(new RegisterRequest
                 {
                     Name = "Admin",
                     Email = "admin@ruaz.com",
@@ -90,7 +90,7 @@ namespace RUAZ.Tests
                 .ReturnsAsync(new User { Email = "existente@ruaz.com" });
 
             await Assert.ThrowsAsync<ConflictException>(() =>
-                _sut.GetByEmail(new RegisterRequest
+                _sut.RegisterUser(new RegisterRequest
                 {
                     Name = "Gabriel",
                     Email = "existente@ruaz.com",
@@ -109,7 +109,7 @@ namespace RUAZ.Tests
                 .ReturnsAsync((User?)null);
 
             await Assert.ThrowsAsync<BadRequestException>(() =>
-                _sut.GetByEmail(new RegisterRequest
+                _sut.RegisterUser(new RegisterRequest
                 {
                     Name = "Gabriel",
                     Email = "novo@ruaz.com",

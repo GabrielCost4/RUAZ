@@ -1,3 +1,4 @@
+using Mapster;
 using RUAZ.Application.Contracts;
 using RUAZ.Application.ExceptionsAPI;
 using RUAZ.Application.Interfaces;
@@ -12,25 +13,18 @@ namespace RUAZ.Application.Services
     {
         public async Task<ProductResponse> CreateAsync(CreateProductRequest request, Guid ownerId)
         {
-            ValidateInput(request.Title, request.Price, request.Stock, request.Category);
-
-            var product = new Product
-            {
-                Id = Guid.NewGuid(),
-                Title = request.Title.Trim(),
-                Description = request.Description?.Trim() ?? string.Empty,
-                Price = request.Price,
-                Stock = request.Stock,
-                Category = request.Category,
-                Image = request.Image ?? [],
-                OwnerId = ownerId,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            product.SyncStatusFromStock();
+            var product = request.Adapt<Product>();
+            product.Id = Guid.NewGuid();
+            product.Title = request.Title.Trim();
+            product.Description = request.Description?.Trim() ?? string.Empty;
+            product.Image = request.Image ?? [];
+            product.OwnerId = ownerId;
+            product.CreatedAt = DateTime.UtcNow;
+            product.SetPrice(request.Price);
+            product.SetStock(request.Stock);
 
             await productRepository.AddAsync(product);
-            return MapToResponse(product);
+            return product.Adapt<ProductResponse>();
         }
 
         public async Task<PagedResult<ProductResponse>> GetAllAsync(ProductFilterRequest filter)
@@ -51,7 +45,7 @@ namespace RUAZ.Application.Services
 
             return new PagedResult<ProductResponse>
             {
-                Items = items.Select(MapToResponse).ToList(),
+                Items = items.Adapt<List<ProductResponse>>(),
                 Page = page,
                 PageSize = pageSize,
                 TotalCount = totalCount
@@ -61,7 +55,7 @@ namespace RUAZ.Application.Services
         public async Task<ProductResponse> GetByIdAsync(Guid id)
         {
             var product = await GetExistingProductAsync(id);
-            return MapToResponse(product);
+            return product.Adapt<ProductResponse>();
         }
 
         public async Task<ProductResponse> UpdateAsync(Guid id, UpdateProductRequest request, Guid currentUserId)
@@ -73,22 +67,19 @@ namespace RUAZ.Application.Services
                 throw new ForbiddenException("Apenas o criador do produto pode editá-lo.");
             }
 
-            ValidateInput(request.Title, request.Price, request.Stock, request.Category);
-
             product.Title = request.Title.Trim();
             product.Description = request.Description?.Trim() ?? string.Empty;
-            product.Price = request.Price;
-            product.Stock = request.Stock;
             product.Category = request.Category;
             if (request.Image is not null)
             {
                 product.Image = request.Image;
             }
+            product.SetPrice(request.Price);
+            product.SetStock(request.Stock);
             product.UpdatedAt = DateTime.UtcNow;
-            product.SyncStatusFromStock();
 
             await productRepository.UpdateAsync(product);
-            return MapToResponse(product);
+            return product.Adapt<ProductResponse>();
         }
 
         public async Task DeleteAsync(Guid id, Guid currentUserId, TypeActivity currentUserRole)
@@ -117,43 +108,5 @@ namespace RUAZ.Application.Services
 
             return product;
         }
-
-        private static void ValidateInput(string title, decimal price, int stock, ProductsCategory category)
-        {
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new BadRequestException("O título do produto é obrigatório.");
-            }
-
-            if (price < 0)
-            {
-                throw new BadRequestException("O preço do produto não pode ser negativo.");
-            }
-
-            if (stock < 0)
-            {
-                throw new BadRequestException("O estoque do produto não pode ser negativo.");
-            }
-
-            if (!Enum.IsDefined(category))
-            {
-                throw new BadRequestException("Categoria do produto inválida.");
-            }
-        }
-
-        private static ProductResponse MapToResponse(Product product) => new()
-        {
-            Id = product.Id,
-            Title = product.Title,
-            Description = product.Description,
-            Price = product.Price,
-            Stock = product.Stock,
-            Image = product.Image,
-            OwnerId = product.OwnerId,
-            Category = product.Category,
-            Status = product.Status,
-            CreatedAt = product.CreatedAt,
-            UpdatedAt = product.UpdatedAt
-        };
     }
 }

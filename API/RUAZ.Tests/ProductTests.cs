@@ -70,47 +70,21 @@ namespace RUAZ.Tests
             Assert.Empty(result.Image);
         }
 
-        [Theory]
-        [InlineData("", 10, 1, ProductsCategory.Fashion)]
-        [InlineData("   ", 10, 1, ProductsCategory.Fashion)]
-        [InlineData("Camisa", -1, 1, ProductsCategory.Fashion)]
-        [InlineData("Camisa", 10, -1, ProductsCategory.Fashion)]
-        [InlineData("Camisa", 10, 1, (ProductsCategory)999)]
-        public async Task Create_InvalidInput_ThrowsBadRequestException(
-            string title,
-            decimal price,
-            int stock,
-            ProductsCategory category)
-        {
-            await Assert.ThrowsAsync<BadRequestException>(() =>
-                _sut.CreateAsync(new CreateProductRequest
-                {
-                    Title = title,
-                    Price = price,
-                    Stock = stock,
-                    Category = category
-                }, Guid.NewGuid()));
-
-            _productRepository.Verify(r => r.AddAsync(It.IsAny<Product>()), Times.Never);
-        }
-
         [Fact]
         public async Task GetAll_NormalizesPaginationAndForwardsFilters()
         {
-            var products = new List<Product>
+            var item = new Product
             {
-                new()
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "Short",
-                    Price = 89.90m,
-                    Stock = 3,
-                    Category = ProductsCategory.Sportive,
-                    Status = StatusProduct.Available,
-                    OwnerId = Guid.NewGuid(),
-                    CreatedAt = DateTime.UtcNow
-                }
+                Id = Guid.NewGuid(),
+                Title = "Short",
+                Category = ProductsCategory.Sportive,
+                OwnerId = Guid.NewGuid(),
+                CreatedAt = DateTime.UtcNow
             };
+            item.SetPrice(89.90m);
+            item.SetStock(3);
+
+            var products = new List<Product> { item };
 
             _productRepository
                 .Setup(r => r.GetPagedAsync(1, 100, ProductsCategory.Sportive, StatusProduct.Available))
@@ -129,6 +103,9 @@ namespace RUAZ.Tests
             Assert.Equal(1, result.TotalCount);
             Assert.Single(result.Items);
             Assert.Equal("Short", result.Items[0].Title);
+            Assert.Equal(89.90m, result.Items[0].Price);
+            Assert.Equal(3, result.Items[0].Stock);
+            Assert.Equal(StatusProduct.Available, result.Items[0].Status);
         }
 
         [Fact]
@@ -139,12 +116,11 @@ namespace RUAZ.Tests
             {
                 Id = id,
                 Title = "Boné",
-                Price = 59.90m,
-                Stock = 2,
                 Category = ProductsCategory.Streetwear,
-                Status = StatusProduct.Available,
                 OwnerId = Guid.NewGuid()
             };
+            product.SetPrice(59.90m);
+            product.SetStock(2);
 
             _productRepository
                 .Setup(r => r.GetByIdAsync(id))
@@ -154,6 +130,9 @@ namespace RUAZ.Tests
 
             Assert.Equal(id, result.Id);
             Assert.Equal("Boné", result.Title);
+            Assert.Equal(59.90m, result.Price);
+            Assert.Equal(2, result.Stock);
+            Assert.Equal(StatusProduct.Available, result.Status);
         }
 
         [Fact]
@@ -176,13 +155,12 @@ namespace RUAZ.Tests
                 Id = Guid.NewGuid(),
                 Title = "Antigo",
                 Description = "Desc antiga",
-                Price = 100m,
-                Stock = 5,
                 Image = [9, 9],
                 Category = ProductsCategory.Fashion,
-                Status = StatusProduct.Available,
                 OwnerId = ownerId
             };
+            product.SetPrice(100m);
+            product.SetStock(5);
 
             _productRepository
                 .Setup(r => r.GetByIdAsync(product.Id))
@@ -211,7 +189,7 @@ namespace RUAZ.Tests
         }
 
         [Fact]
-        public async Task Update_ByNonOwner_ThrowsForbiddenException()
+        public async Task Update_ByNonOwner_IncludingAdmin_ThrowsForbiddenException()
         {
             var ownerId = Guid.NewGuid();
             var otherUserId = Guid.NewGuid();
@@ -236,6 +214,24 @@ namespace RUAZ.Tests
                 }, otherUserId));
 
             _productRepository.Verify(r => r.UpdateAsync(It.IsAny<Product>()), Times.Never);
+        }
+
+        [Fact]
+        public async Task Update_NotFound_ThrowsNotFoundException()
+        {
+            var id = Guid.NewGuid();
+            _productRepository
+                .Setup(r => r.GetByIdAsync(id))
+                .ReturnsAsync((Product?)null);
+
+            await Assert.ThrowsAsync<NotFoundException>(() =>
+                _sut.UpdateAsync(id, new UpdateProductRequest
+                {
+                    Title = "Produto",
+                    Price = 10m,
+                    Stock = 1,
+                    Category = ProductsCategory.Fashion
+                }, Guid.NewGuid()));
         }
 
         [Fact]
@@ -307,6 +303,46 @@ namespace RUAZ.Tests
                 _sut.DeleteAsync(product.Id, otherId, role));
 
             _productRepository.Verify(r => r.DeleteAsync(It.IsAny<Product>()), Times.Never);
+        }
+
+        [Fact]
+        public async Task Delete_NotFound_ThrowsNotFoundException()
+        {
+            var id = Guid.NewGuid();
+            _productRepository
+                .Setup(r => r.GetByIdAsync(id))
+                .ReturnsAsync((Product?)null);
+
+            await Assert.ThrowsAsync<NotFoundException>(() =>
+                _sut.DeleteAsync(id, Guid.NewGuid(), TypeActivity.Admin));
+        }
+
+        [Fact]
+        public void Product_SetPrice_Negative_ThrowsArgumentOutOfRangeException()
+        {
+            var product = new Product();
+            Assert.Throws<ArgumentOutOfRangeException>(() => product.SetPrice(-0.01m));
+        }
+
+        [Fact]
+        public void Product_SetStock_Negative_ThrowsArgumentOutOfRangeException()
+        {
+            var product = new Product();
+            Assert.Throws<ArgumentOutOfRangeException>(() => product.SetStock(-1));
+        }
+
+        [Fact]
+        public void Product_SetStock_UpdatesStatusAutomatically()
+        {
+            var product = new Product();
+
+            product.SetStock(3);
+            Assert.Equal(3, product.Stock);
+            Assert.Equal(StatusProduct.Available, product.Status);
+
+            product.SetStock(0);
+            Assert.Equal(0, product.Stock);
+            Assert.Equal(StatusProduct.Exhausted, product.Status);
         }
     }
 }

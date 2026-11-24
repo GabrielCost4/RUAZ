@@ -18,7 +18,7 @@ namespace RUAZ.Application.Services
         IJWTService jwtService
     )
     {
-        public async Task<LoginResponse> GetByEmail(RegisterRequest request)
+        public async Task<LoginResponse> RegisterUser(RegisterRequest request)
         {
             if (request.TypeActivity is not (TypeActivity.User or TypeActivity.Store))
             {

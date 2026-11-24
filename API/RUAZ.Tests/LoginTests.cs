@@ -1,8 +1,8 @@
 using Moq;
-using RUAZ.Application;
 using RUAZ.Application.Contracts;
 using RUAZ.Application.ExceptionsAPI;
 using RUAZ.Application.Interfaces;
+using RUAZ.Application.Services;
 using RUAZ.Domain.Entities;
 using RUAZ.Domain.Enums;
 

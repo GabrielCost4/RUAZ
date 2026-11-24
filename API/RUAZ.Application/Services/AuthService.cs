@@ -8,7 +8,7 @@ using RUAZ.Application.ExceptionsAPI;
 using RUAZ.Application.Interfaces;
 using RUAZ.Domain.Entities;
 
-namespace RUAZ.Application
+namespace RUAZ.Application.Services
 {
     public class AuthService(
       IUserRepository userRepository,

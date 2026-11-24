@@ -13,22 +13,22 @@ O RUAZ é um projeto de aprendizado que tem como produto um e-commerce funcional
 
 O pedido atual e as decisões confirmadas definem o comportamento esperado. Use o código, a configuração e os testes para identificar o comportamento implementado e os contratos vigentes. Se houver divergência, confira o pedido e as decisões registradas. Se uma regra de negócio continuar em aberto e mudar o resultado esperado, esclareça-a antes de implementar o trecho afetado. Para decisões técnicas locais e reversíveis, siga os padrões do repositório e registre a escolha no resumo da tarefa quando ela afetar a continuidade.
 
-## Estado inicial e onde conferir
+## Estrutura da aplicação e responsabilidades das camadas
 
-Use esta seção como referência de entrada. Confirme o estado atual nos arquivos antes de iniciar uma tarefa e atualize o guia quando uma mudança tornar alguma informação duradoura obsoleta.
+O RUAZ é composto por um backend em .NET 10 (Clean Architecture), infraestrutura local em Docker e um frontend em Angular 22. Use esta seção como referência das responsabilidades de cada parte e confirme o estado atual diretamente no código antes de iniciar uma tarefa.
 
-| Local | Responsabilidade e estado registrado |
+| Local | Responsabilidade |
 | --- | --- |
-| `API/RUAZ.slnx` | Solução do backend em .NET 10. |
-| `API/RUAZ.Domain` | Entidades, regras e tipos de negócio. Já contém `User` e `Product`. |
-| `API/RUAZ.Application` | Casos de uso, contratos e interfaces para dependências externas. Já contém os serviços de login e cadastro. |
-| `API/RUAZ.Infrastructure` | Implementações de persistência e serviços externos. Usa EF Core com PostgreSQL e contém as migrations, o repositório de usuários, o hash de senha e a emissão de JWT. |
-| `API/RUAZ.API` | Entrada HTTP em ASP.NET Core. `Program.cs` configura a aplicação e a injeção de dependências. `AuthController` expõe `POST /api/auth/login` e `POST /api/auth/register`. |
-| `API/RUAZ.Tests` | Testes do backend com xUnit e Moq. `LoginTests.cs` cobre um cenário de login. |
-| `API/InfraDocker` | Docker Compose para PostgreSQL e `.env.example` para configuração local. |
-| `WEB` | Frontend em Angular 22 com TypeScript, SCSS e scripts npm para servir, compilar e testar. |
+| `API/RUAZ.slnx` | Solução que agrupa os projetos do backend em .NET 10. |
+| `API/RUAZ.Domain` | Núcleo de negócio: entidades, enums, invariantes e regras de domínio, sem dependências externas. |
+| `API/RUAZ.Application` | Coordenação de casos de uso, contratos (DTOs), exceções de aplicação, mapeamentos e interfaces para dependências externas. |
+| `API/RUAZ.Infrastructure` | Adaptadores de persistência e serviços externos: EF Core com PostgreSQL, migrations, repositórios concretos, segurança (hash de senha e emissão de JWT) e futuras integrações de mensageria. |
+| `API/RUAZ.API` | Camada de entrada HTTP em ASP.NET Core: controllers, políticas de autorização, tratamento global de exceções e composição das dependências. |
+| `API/RUAZ.Tests` | Testes automatizados do backend com xUnit e Moq, validando regras de domínio, casos de uso e serviços. |
+| `API/InfraDocker` | Ambiente local em Docker Compose para serviços de infraestrutura (como PostgreSQL) e exemplo de configuração. |
+| `WEB` | Frontend em Angular 22 com TypeScript e SCSS, responsável pela interface, navegação, estados de tela e consumo da API. |
 
-RabbitMQ é um objetivo de aprendizado e ainda não está integrado no estado registrado. A presença de uma entidade como `Product` indica que há um modelo no domínio. Consulte também os endpoints, casos de uso e telas para confirmar quais fluxos estão disponíveis.
+Consulte os controllers, casos de uso, testes e telas existentes para confirmar quais fluxos já estão disponíveis. RabbitMQ é um objetivo de aprendizado e deve ser introduzido quando um fluxo concreto exigir comunicação assíncrona.
 
 ## Arquitetura e implementação
 
